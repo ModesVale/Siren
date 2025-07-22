@@ -28,6 +28,10 @@ public class Thief : MonoBehaviour
     private void TurnInDirection()
     {
         _direction = (_waypoints[_currientWaypoint].position - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(_direction);
+        
+        if (_direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(_direction);
+        }
     }
 }
