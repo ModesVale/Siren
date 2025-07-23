@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thief: {fileID: 1232964634}
   _siren: {fileID: 1533341922}
-  _volumeChangeSpeed: 1
+  _volumeChangeSpeed: 0.2
   _volumeMax: 1
   _volumeMin: 0
 --- !u!65 &1533341920
@@ -1056,9 +1056,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7de2f1dcdb604b34ba3817d274618f47, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

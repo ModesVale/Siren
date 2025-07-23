@@ -50,9 +50,9 @@ public class Siren : MonoBehaviour
         while (_siren.volume < _volumeMax)
         {
             _siren.volume = Mathf.MoveTowards(_siren.volume, _volumeMax, _volumeChangeSpeed * Time.deltaTime);
+            yield return null;
         }
 
-        yield return null;
     }
 
     private IEnumerator DeactivateSiren()
@@ -60,8 +60,8 @@ public class Siren : MonoBehaviour
         while (_siren.volume > _volumeMin)
         {
             _siren.volume = Mathf.MoveTowards(_siren.volume, _volumeMin, _volumeChangeSpeed * Time.deltaTime);
+            yield return null;
         }
 
-        yield return null;
     }
 }
