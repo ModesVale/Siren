@@ -63,5 +63,6 @@ public class Siren : MonoBehaviour
             yield return null;
         }
 
+        _siren.Stop();
     }
 }
