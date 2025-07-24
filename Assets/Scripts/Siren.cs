@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Siren : MonoBehaviour
 {
-    [SerializeField] private DetectionZone _zone;
     [SerializeField] private AudioSource _siren;
     [SerializeField] private float _volumeChangeSpeed = 1.0f;
     [SerializeField] private float _volumeMax = 1.0f;
@@ -11,27 +10,14 @@ public class Siren : MonoBehaviour
 
     private Coroutine _sirenStatus;
 
-    private void OnEnable()
-    {
-        _zone.ThiefDetectedChanged += HandleThiefPresence;
+    public void SirenTurnOn()
+    {    
+        RestartCorutine(ActivateSiren(_volumeMax));
     }
 
-    private void OnDisable()
+    public void SirenTurnOff()
     {
-        _zone.ThiefDetectedChanged -= HandleThiefPresence;
-    }
-
-    private void HandleThiefPresence(bool isThiefInside)
-    {
-        if (isThiefInside == true)
-        {
-            RestartCorutine(ActivateSiren());
-        }
-
-        if (isThiefInside == false)
-        {
-            RestartCorutine(DeactivateSiren());
-        }
+        RestartCorutine(ActivateSiren(_volumeMin));       
     }
 
     private void RestartCorutine(IEnumerator routine)
@@ -44,29 +30,22 @@ public class Siren : MonoBehaviour
         _sirenStatus = StartCoroutine(routine);
     }
 
-    private IEnumerator ActivateSiren()
+    private IEnumerator ActivateSiren(float volume)
     {
         if (!_siren.isPlaying)
         {
             _siren.Play();
         }
 
-        while (_siren.volume < _volumeMax)
+        while (!Mathf.Approximately(_siren.volume, volume))
         {
-            _siren.volume = Mathf.MoveTowards(_siren.volume, _volumeMax, _volumeChangeSpeed * Time.deltaTime);
+            _siren.volume = Mathf.MoveTowards(_siren.volume, volume, _volumeChangeSpeed * Time.deltaTime);
             yield return null;
         }
 
-    }
-
-    private IEnumerator DeactivateSiren()
-    {
-        while (_siren.volume > _volumeMin)
+        if (Mathf.Approximately(volume, _volumeMin))
         {
-            _siren.volume = Mathf.MoveTowards(_siren.volume, _volumeMin, _volumeChangeSpeed * Time.deltaTime);
-            yield return null;
+            _siren.Stop();
         }
-
-        _siren.Stop();
     }
 }

@@ -4,14 +4,13 @@ using UnityEngine;
 public class DetectionZone : MonoBehaviour
 {
     [SerializeField] private Thief _thief;
-
-    public event Action<bool> ThiefDetectedChanged;
+    [SerializeField] private Siren _siren;
     
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Thief thief) && thief == _thief)
         {
-            ThiefDetectedChanged?.Invoke(true);
+            _siren.SirenTurnOn();
         }
     }
 
@@ -19,7 +18,7 @@ public class DetectionZone : MonoBehaviour
     {
         if (other.TryGetComponent(out Thief thief) && thief == _thief)
         {
-            ThiefDetectedChanged?.Invoke(false);
+            _siren.SirenTurnOff();
         }
     }
 }

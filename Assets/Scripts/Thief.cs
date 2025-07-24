@@ -10,10 +10,10 @@ public class Thief : MonoBehaviour
 
     private void Update()
     {
-        Moving();
+        MoveThief();
     }
 
-    private void Moving()
+    private void MoveThief()
     {
         if (transform.position == _waypoints[_currientWaypoint].position)
         {

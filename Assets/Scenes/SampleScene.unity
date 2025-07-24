@@ -1003,6 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _thief: {fileID: 1232964634}
+  _siren: {fileID: 1653925440}
 --- !u!65 &1533341920
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1254,7 +1255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda319029e58c304ab64bbf1f243a70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zone: {fileID: 1533341919}
   _siren: {fileID: 1653925439}
   _volumeChangeSpeed: 0.2
   _volumeMax: 1
