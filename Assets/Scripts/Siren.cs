@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Siren : MonoBehaviour
 {
-    [SerializeField] private Thief _thief;
+    [SerializeField] private DetectionZone _zone;
     [SerializeField] private AudioSource _siren;
     [SerializeField] private float _volumeChangeSpeed = 1.0f;
     [SerializeField] private float _volumeMax = 1.0f;
@@ -12,20 +11,25 @@ public class Siren : MonoBehaviour
 
     private Coroutine _sirenStatus;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnEnable()
     {
-        if (other.TryGetComponent(out Thief thief) && thief == _thief)
-        {
-            Debug.Log("IN");
-            RestartCorutine(ActivateSiren());
-        }
+        _zone.ThiefDetectedChanged += HandleThiefPresence;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDisable()
     {
-        if (other.TryGetComponent(out Thief thief) && thief == _thief)
+        _zone.ThiefDetectedChanged -= HandleThiefPresence;
+    }
+
+    private void HandleThiefPresence(bool isThiefInside)
+    {
+        if (isThiefInside == true)
         {
-            Debug.Log("OUT");
+            RestartCorutine(ActivateSiren());
+        }
+
+        if (isThiefInside == false)
+        {
             RestartCorutine(DeactivateSiren());
         }
     }
